@@ -1,4 +1,4 @@
-FROM rhel7:7.8-ondeck
+FROM rhel7
 LABEL maintainer="Red Hat, Inc."
 
 LABEL com.redhat.component="rhel-tools-container"
