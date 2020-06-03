@@ -1,53 +1,18 @@
-FROM rhel7
-LABEL maintainer="Red Hat, Inc."
+FROM koji/image-build
 
-LABEL com.redhat.component="rhel-tools-container"
-LABEL name="rhel7/rhel-tools"
-LABEL version="7.8"
+MAINTAINER Red Hat, Inc.
 
-LABEL License="GPLv3"
-
-LABEL run="docker run -it --name NAME --privileged --ipc=host --net=host --pid=host -e HOST=/host -e NAME=NAME -e IMAGE=IMAGE -v /run:/run -v /var/log:/var/log -v /etc/machine-id:/etc/machine-id -v /etc/localtime:/etc/localtime -v /:/host IMAGE"
+LABEL com.redhat.component="rhel-server-container" \
+      name="rhel7" \
+      version="7.8"
 
 #labels for container catalog
 LABEL summary="Provides the latest release of Red Hat Enterprise Linux 7 in a fully featured and supported base image."
-LABEL description="The Red Hat Enterprise Linux Atomic Tools Container (RHEL Tools Container) includes hundreds of software tools for troubleshooting and investigating a Red Hat Enterprise Linux Atomic (RHEL Atomic) Host. Designed to run as a privileged container, the RHEL Tools Container allows you to interact directly with the RHEL Atomic Host system to uncover and solve problems. Inside the RHEL Tools Container are popular tools such as strace, kdump, and many others (most of which are not included with RHEL Atomic)."
-LABEL io.k8s.display-name="Red Hat Enterprise Linux Tools"
-LABEL io.openshift.expose-services=""
+LABEL description="The Red Hat Enterprise Linux Base image is designed to be a fully supported foundation for your containerized applications. This base image provides your operations and application teams with the packages, language runtimes and tools necessary to run, maintain, and troubleshoot all of your applications. This image is maintained by Red Hat and updated regularly. It is designed and engineered to be the base layer for all of your containerized applications, middleware and utilities. When used as the source for all of your containers, only one copy will ever be downloaded and cached in your production environment. Use this image just like you would a regular Red Hat Enterprise Linux distribution. Tools like yum, gzip, and bash are provided by default. For further information on how this image was built look at the /root/anacanda-ks.cfg file."
+LABEL io.k8s.display-name="Red Hat Enterprise Linux 7"
+LABEL io.openshift.tags="base rhel7"
 
-RUN INSTALL_PKGS="\
-  unzip \
-  bash-completion \
-  bc \
-  bind-utils \
-  blktrace \
-  crash \
-  e2fsprogs \
-  ethtool \
-  file \
-  git \
-  glibc-utils \
-  hwloc \
-  iotop \
-  iproute \
-  iputils \
-  less \
-  ltrace \
-  mailx \
-  net-tools \
-  netsniff-ng \
-  nmap-ncat \
-  numactl \
-  numactl-devel \
-  parted \
-  pciutils \
-  psmisc \
-  screen \
-  strace \
-  sysstat \
-  tcpdump \
-  vim-enhanced \
-  xfsprogs \
-  " && yum -y install $INSTALL_PKGS && rpm -V --nosize --nofiledigest --nomtime --nomode $INSTALL_PKGS && yum clean all
+ENV container oci
+ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-CMD ["/usr/bin/bash"]
+CMD ["/bin/bash"]
