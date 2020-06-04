@@ -6,6 +6,4 @@ RUN INSTALL_PKGS="unzip" && \
     microdnf clean all && \
     rm -rf /usr/local/man
 
-CMD ["/usr/bin/bash"]
-WORKDIR /
 RUN unzip -h
