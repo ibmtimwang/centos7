@@ -1,4 +1,4 @@
-FROM rhel7/support-tools
+FROM registry.redhat.io/rhel7/support-tools
 
 RUN INSTALL_PKGS="unzip" && \
     microdnf -y install $INSTALL_PKGS && \
