@@ -6,4 +6,4 @@ RUN INSTALL_PKGS="unzip" && \
     microdnf clean all && \
     rm -rf /usr/local/man
 
-RUN unzip -h
+RUN sleep 600
